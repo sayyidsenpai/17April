@@ -1,0 +1,18 @@
+.Button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  width: 160px;
+  border: 2px solid blue;
+  border-radius: 60px;
+
+  font-family: primary-font;
+  font-size: 16px;
+  color: blue;
+  letter-spacing: 1.27px;
+  text-align: center;
+  text-transform: uppercase;
+}
