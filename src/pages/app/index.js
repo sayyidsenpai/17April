@@ -1,49 +1,59 @@
-import React, { Component } from 'react';
-// import { Route, Link, Switch } from 'react-router-dom'
-// import Home from '../home'
-// import About from '../about'
-import Toolbar from '../../components/Toolbar/Toolbar';
-import SideDrawer from '../../components/SideDrawer/SideDrawer';
-import Backdrop from '../../components/Backdrop/Backdrop';
+import React, { Component } from "react";
+import { Switch, Route  } from 'react-router-dom';
+import { Layout, Icon } from "antd";
+import SiderMenu from "../../components/SiderMenu/SiderMenu";
+// import LayoutCustom from '../../components/Layout';
+
+import Home from '../home'
+import About from '../about'
+
+const { Header, Content } = Layout;
 
 class App extends Component {
   state = {
-    sideDrawerOpen: false
-  }
-  
-  drawerToggleClickHandler = () => {
-    this.setState((prevState) => {
-      return { sideDrawerOpen: !prevState.sideDrawerOpen };
+    collapsed: false,
+  };
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
     });
+  };
+
+  onCollapse = (collapsed) => {
+    this.setState({ collapsed });
   }
 
-  backdropClickHandler = () => {
-    this.setState({ sideDrawerOpen: false });
-  }
-  
   render() {
-    const { sideDrawerOpen } = this.state;
-    let backdrop;
-
-    if (sideDrawerOpen) {
-      backdrop = <Backdrop click={this.backdropClickHandler}/>;
-    }
-
+    const { collapsed } = this.state;
     return (
-      <div style={{ height: '100%' }}>
-        <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer show={sideDrawerOpen}/>
-        {backdrop}
-        <main style={{ marginTop: '64px' }}>
-          <p>This is the page content!</p>
-        </main>
-      </div>
-    )
+      <Layout>
+        <SiderMenu collapsed={collapsed} onCollapse={this.onCollapse}/>        
+        <Layout>
+          <Header style={{ background: "#fff", padding: '0 20px' }}>
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
+              onClick={this.toggle}
+            />
+            <span className="float-right text-right" style={{ float: 'right' }}>
+              Avatar
+            </span>
+          </Header>
+          <Content style={{ margin: "20px 16px 0" }}>
+            {/* <LayoutCustom/> */}
+            <Switch>
+                <Route exact path="/dashboard" component={Home} />
+                <Route exact path="/about-us" component={About} />
+            </Switch>
+          </Content>
+        </Layout>
+      </Layout>
+    );
   }
 }
 
 export default App;
-
 
 // const App = () => (
 //   <div style={{ height: '100%' }}>

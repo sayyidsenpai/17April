@@ -6,6 +6,8 @@ import configureStore, { history } from './store'
 import App from './pages/app';
 import * as serviceWorker from './serviceWorker';
 
+import 'antd/dist/antd.css'; 
+
 const store = configureStore(/* provide initial state if any */)
  
 ReactDOM.render(
